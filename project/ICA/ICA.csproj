@@ -8,8 +8,8 @@
     <ProjectGuid>{D6AA28C8-13CF-478B-9AD2-3EE0126537AA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SimuKit.ML.ICA</RootNamespace>
-    <AssemblyName>SimuKit.ML.ICA</AssemblyName>
+    <RootNamespace>ICA</RootNamespace>
+    <AssemblyName>ICA</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -48,7 +48,7 @@
       <Project>{B7CAE5F4-A23F-4438-B5BE-41226618B695}</Project>
       <Name>Numerics</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\SimuKit.ML\SimuKit.ML.csproj">
+    <ProjectReference Include="..\..\SimuKit.ML\csproj">
       <Project>{A0EEAC9F-645A-4C76-A960-31C79BA71417}</Project>
       <Name>SimuKit.ML</Name>
     </ProjectReference>
