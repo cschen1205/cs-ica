@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using SimuKit.ML.Lang;
 using MathNet.Numerics.LinearAlgebra.Generic;
 using MathNet.Numerics.LinearAlgebra.Double;
 
@@ -12,8 +11,7 @@ namespace SimuKit.ML.ICA
     /// Independent Component Analysis algorithm for solving linear noise less "cocktail party problem"
     /// Example: Blind Source Separation of recorded speech and music signals (a.k.a Cocktail Party Problem)
     /// </summary>
-    public class LinearNoiseLessICA<T>
-        where T : MLDataPoint
+    public class LinearNoiseLessICA
     {
         /// <summary>
         /// Separate the original signal sample X into two independent sources X1 and X2
@@ -21,7 +19,7 @@ namespace SimuKit.ML.ICA
         /// <param name="X"></param>
         /// <param name="X1"></param>
         /// <param name="X2"></param>
-        public void Solve(List<T> X, out List<T> X1, out List<T> X2)
+        public void Solve(List<double[]> X, out List<double[]> X1, out List<double[]> X2)
         {
             int m=X.Count;
             if(m==0)
@@ -29,14 +27,14 @@ namespace SimuKit.ML.ICA
                 throw new Exception("sample count is zero!");
             }
 
-            T signal_0 = X[0];
-            int num_features=signal_0.Dimension;
+            double[] signal_0 = X[0];
+            int num_features=signal_0.Length;
 
             Matrix<double> X_matrix = new DenseMatrix(m, num_features);
 
             for (int i = 0; i < m; ++i)
             {
-                T rec=X[i];
+                double[] rec=X[i];
                 for (int j = 0; j < num_features; ++j)
                 {
                     X_matrix[i, j] = rec[j];
@@ -78,13 +76,13 @@ namespace SimuKit.ML.ICA
             Matrix<double> X1_matrix=W.Multiply(X_matrix);
             Matrix<double> X2_matrix=v.Multiply(X_matrix);
 
-            X1 = new List<T>();
-            X2 = new List<T>();
+            X1 = new List<double[]>();
+            X2 = new List<double[]>();
 
             for (int i = 0; i < m; ++i)
             {
-                T signal1 = (T)signal_0.Clone();
-                T signal2 = (T)signal_0.Clone();
+                double[] signal1 = Clone(signal_0);
+                double[] signal2 = Clone(signal_0);
                 for (int j = 0; j < num_features; ++j)
                 {
                     signal1[j] = X1_matrix[i, j];
@@ -94,5 +92,17 @@ namespace SimuKit.ML.ICA
                 X2.Add(signal2);
             }
         }
+
+        private double[] Clone(double[] a)
+        {
+            double[] result = new double[a.Length];
+            for(int i=0; i <a.Length; ++i)
+            {
+                result[i] = a[i];
+            }
+            return result;
+        }
     }
+
+
 }
