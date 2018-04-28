@@ -5,7 +5,7 @@ using System.Text;
 using MathNet.Numerics.LinearAlgebra.Generic;
 using MathNet.Numerics.LinearAlgebra.Double;
 
-namespace SimuKit.ML.ICA
+namespace ICA
 {
     /// <summary>
     /// Independent Component Analysis algorithm for solving linear noise less "cocktail party problem"
